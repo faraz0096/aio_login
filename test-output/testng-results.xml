@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-04-25T08:33:57 PDT" name="Suite" finished-at="2024-04-25T08:34:24 PDT" duration-ms="26648">
+    <groups>
+    </groups>
+    <test started-at="2024-04-25T08:33:57 PDT" name="Test" finished-at="2024-04-25T08:34:24 PDT" duration-ms="26648">
+      <class name="farazqa.aio.automation.TestCases">
+        <test-method signature="Launch()[pri:0, instance:farazqa.aio.automation.changeLoginURL@5b38c1ec]" started-at="2024-04-25T08:33:57 PDT" name="Launch" finished-at="2024-04-25T08:34:09 PDT" duration-ms="11187" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Launch -->
+        <test-method signature="verifyChangeURL()[pri:0, instance:farazqa.aio.automation.changeLoginURL@5b38c1ec]" started-at="2024-04-25T08:34:09 PDT" name="verifyChangeURL" finished-at="2024-04-25T08:34:24 PDT" duration-ms="15361" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyChangeURL -->
+      </class> <!-- farazqa.aio.automation.TestCases -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
+</testng-results>
