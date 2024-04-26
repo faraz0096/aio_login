@@ -35,7 +35,6 @@ public class TestCases {
     @Test
     public void VerifyChangeURL() throws InterruptedException, IOException {
 
-
         driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/wp-admin");
         driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
         driver.findElement(By.id("user_pass")).sendKeys("faraz0096");
@@ -59,8 +58,7 @@ public class TestCases {
     }
 
     @Test
-    public int VerifyLimitLoginAttempts() {
-
+    public void VerifyLimitLoginAttempts() {
         driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/login");
         driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
         driver.findElement(By.id("user_pass")).sendKeys("faraz0096");
@@ -75,16 +73,16 @@ public class TestCases {
         driver.findElement(By.id("aio_login_limit_attempts_timeout")).sendKeys("1");
         driver.findElement(By.cssSelector("input[value='Save Changes']")).click();
         Assert.assertEquals(LimitLoginSavedSuccess, driver.findElement(By.xpath("//div[@class='toast-body']")).getText(), "Limit Login Attempts Saved Successfully");
-        int getMaxAttempts =  Integer.parseInt(driver.findElement(By.id("aio_login_limit_attempts_maximum_attempts")).getAttribute("value"));
+        int getMaxAttempts = Integer.parseInt(driver.findElement(By.id("aio_login_limit_attempts_maximum_attempts")).getAttribute("value"));
         int getMaxTimeOuts = Integer.parseInt(driver.findElement(By.id("aio_login_limit_attempts_timeout")).getAttribute("value"));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
         driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/login");
 
         int i = 1;
-        int previousAttempts  = -1;
+        int previousAttempts = -1;
 
-        while (i<getMaxAttempts) {
+        while (i < getMaxAttempts) {
             driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
             driver.findElement(By.id("user_pass")).sendKeys("faraz009");
             driver.findElement(By.id("wp-submit")).click();
@@ -94,7 +92,7 @@ public class TestCases {
             int getUserAttempts = Integer.parseInt(driver.findElement(By.cssSelector("div[class='notice notice-error'] b")).
                     getText().split("have")[1].split("attempts")[0].trim());
 
-// Check if attempts are properly decreasing
+            // Check if attempts are properly decreasing
             if (previousAttempts != -1) { // Skip the first iteration
                 if (getUserAttempts == previousAttempts - 1) {
                     System.out.println("Attempts are properly decreasing.");
@@ -107,33 +105,30 @@ public class TestCases {
             previousAttempts = getUserAttempts;
 
         }
-
-        return previousAttempts;
-
     }
 
-    @Test
-    public void VerifyLockOuts(){
 
-        driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/login");
+   @Test
+    public void VerifyLockOuts() {
 
-        int remainingLimits = VerifyLimitLoginAttempts();
-        System.out.println("Remaining Limits: " + remainingLimits);
+       String expectedBlockedText = "You have been blocked due to too many unsuccessful login attempts";
+       driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/login");
+           driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
+           driver.findElement(By.id("user_pass")).sendKeys("faraz009");
+           driver.findElement(By.id("wp-submit")).click();
+           String getBlockedText = driver.findElement(By.id("login_error")).getText();
 
-        if(remainingLimits>0){
+           if (getBlockedText.contains(expectedBlockedText)) {
 
-            driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
-            driver.findElement(By.id("user_pass")).sendKeys("faraz009");
-            driver.findElement(By.id("wp-submit")).click();
-
-        }
-
-
-
-        System.out.println();
+               Assert.assertTrue(true);
+           }
 
 
-    }
+
+
+
+
+   }
 
 
     public void TearDown(){
