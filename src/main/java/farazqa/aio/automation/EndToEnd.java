@@ -1,4 +1,7 @@
 package farazqa.aio.automation;
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.time.Duration;
 import org.openqa.selenium.By;
@@ -6,6 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,6 +23,7 @@ import com.aventstack.extentreports.ExtentReports;
 public class EndToEnd {
 
     public ExtentReports extent;
+    WebDriverWait wait;
     public WebDriver driver;
     public  String savedSuccessfullyChangeLoginURL = "Change Login URL settings saved successfully";
     public  String adminPage = "Log In ‹ wordpress-1077016-4396807.cloudwaysapps.com — WordPress";
@@ -30,6 +38,7 @@ public class EndToEnd {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
     }
 
@@ -150,8 +159,17 @@ public class EndToEnd {
        driver.findElement(By.id("aio_login_logo")).click();
        driver.findElement(By.id("menu-item-upload")).click();
        WebElement addFile = driver.findElement(By.id("__wp-uploader-id-1"));
+       addFile.click();
        Thread.sleep(2000);
-       addFile.sendKeys("C:\\Users\\User\\Downloads\\AIO Login\\Automation\\Logo Upload\\logoupload");
+       String filePath = "C:\\Users\\User\\Downloads\\AIO Login\\Automation\\Logo Upload\\logoupload.JPG";
+       uploadFileUsingRobot(filePath);
+       WebElement chooseImage = driver.findElement(By.xpath("//div[@id='__wp-uploader-id-0']//button[@type='button'][normalize-space()='Choose Picture']"));
+       wait.until(ExpectedConditions.elementToBeClickable(chooseImage));
+       chooseImage.click();
+      String text =  driver.findElement(By.id("aio_login_logo--img")).getAttribute("style");
+       System.out.println(text);
+
+
        Thread.sleep(2000);
    }
 
@@ -160,6 +178,24 @@ public class EndToEnd {
     public void TearDown(){
 
         driver.close();
+    }
+
+    // Method to upload file using Robot class
+    public static void uploadFileUsingRobot(String filePath) {
+        try {
+            Robot robot = new Robot();
+            StringSelection selection = new StringSelection(filePath);
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            Thread.sleep(2000); // Wait for file upload to complete
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
