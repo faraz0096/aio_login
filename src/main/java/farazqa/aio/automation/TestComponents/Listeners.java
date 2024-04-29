@@ -1,4 +1,4 @@
-package farazqa.aio.automation;
+package farazqa.aio.automation.TestComponents;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import com.aventstack.extentreports.Status;
 
 public class Listeners extends BaseClass implements ITestListener {
 	
-	ExtentTest test;
+	   ExtentTest test;
 	   ExtentReports extent =  ExtentReportNG.getReportObject();
 
 	    @Override
@@ -44,7 +44,7 @@ public class Listeners extends BaseClass implements ITestListener {
 
 	        String filePath = null;
 	        try {
-	            filePath = getScreenshot(result.getMethod().getMethodName(), driver);
+	            filePath = getScreenshot(result.getMethod().getMethodName());
 	        } catch (IOException e) {
 	            throw new RuntimeException(e);
 	        }

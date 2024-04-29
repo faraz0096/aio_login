@@ -2,11 +2,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
  <listeners>
-        <listener class-name="farazqa.aio.automation.Listeners"/>
+        <listener class-name="farazqa.aio.automation.TestComponents.Listeners"/>
     </listeners>
   <test thread-count="5" name="Test">
     <classes>
-      <class name="farazqa.aio.automation.TestCases"/>
+      <class name="farazqa.aio.automation.EndToEnd"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

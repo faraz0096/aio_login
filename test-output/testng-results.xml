@@ -6,7 +6,7 @@
     <groups>
     </groups>
     <test started-at="2024-04-25T08:33:57 PDT" name="Test" finished-at="2024-04-25T08:34:24 PDT" duration-ms="26648">
-      <class name="farazqa.aio.automation.TestCases">
+      <class name="farazqa.aio.automation.EndToEnd">
         <test-method signature="Launch()[pri:0, instance:farazqa.aio.automation.changeLoginURL@5b38c1ec]" started-at="2024-04-25T08:33:57 PDT" name="Launch" finished-at="2024-04-25T08:34:09 PDT" duration-ms="11187" status="PASS">
           <reporter-output>
           </reporter-output>
@@ -15,7 +15,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyChangeURL -->
-      </class> <!-- farazqa.aio.automation.TestCases -->
+      </class> <!-- farazqa.aio.automation.EndToEnd -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>

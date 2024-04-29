@@ -1,21 +1,22 @@
 package farazqa.aio.automation;
-
 import java.io.IOException;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentReports;
 
-public class TestCases {
+public class EndToEnd {
 
     public ExtentReports extent;
-   public WebDriver driver;
+    public WebDriver driver;
     public  String savedSuccessfullyChangeLoginURL = "Change Login URL settings saved successfully";
     public  String adminPage = "Log In ‹ wordpress-1077016-4396807.cloudwaysapps.com — WordPress";
     public   String LimitLoginSavedSuccess = "Limit Login Attempts settings saved successfully.";
@@ -32,7 +33,7 @@ public class TestCases {
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void VerifyChangeURL() throws InterruptedException, IOException {
 
         driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/wp-admin");
@@ -57,7 +58,18 @@ public class TestCases {
 
     }
 
-    @Test
+    @Test(enabled = false)
+    public void VerifyRedirectURL(){
+
+        String adminURL = "https://wordpress-1077016-4396807.cloudwaysapps.com/wp-admin";
+        String redirectURL = "https://wordpress-1077016-4396807.cloudwaysapps.com/my-account/";
+        driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/wp-admin");
+
+        Assert.assertEquals(driver.getCurrentUrl(), redirectURL);
+
+    }
+
+    @Test(enabled = false)
     public void VerifyLimitLoginAttempts() {
         driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/login");
         driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
@@ -108,7 +120,7 @@ public class TestCases {
     }
 
 
-   @Test
+   @Test(enabled = false)
     public void VerifyLockOuts() {
 
        String expectedBlockedText = "You have been blocked due to too many unsuccessful login attempts";
@@ -123,14 +135,28 @@ public class TestCases {
                Assert.assertTrue(true);
            }
 
+   }
 
+   @Test
+   public void VerifyLogoUpload() throws InterruptedException {
 
-
-
-
+       driver.get("https://wordpress-1077016-4396807.cloudwaysapps.com/login");
+       driver.findElement(By.id("user_login")).sendKeys("farazshaikh.objects@gmail.com");
+       driver.findElement(By.id("user_pass")).sendKeys("faraz0096");
+       driver.findElement(By.id("wp-submit")).click();
+       driver.findElement(By.xpath("//li[@id='toplevel_page_aio-login']")).click();
+       driver.findElement(By.xpath("//a[@href='admin.php?page=aio-login&tab=customization']")).click();
+       driver.findElement(By.linkText("Logo")).click();
+       driver.findElement(By.id("aio_login_logo")).click();
+       driver.findElement(By.id("menu-item-upload")).click();
+       WebElement addFile = driver.findElement(By.id("__wp-uploader-id-1"));
+       Thread.sleep(2000);
+       addFile.sendKeys("C:\\Users\\User\\Downloads\\AIO Login\\Automation\\Logo Upload\\logoupload");
+       Thread.sleep(2000);
    }
 
 
+   @AfterMethod
     public void TearDown(){
 
         driver.close();

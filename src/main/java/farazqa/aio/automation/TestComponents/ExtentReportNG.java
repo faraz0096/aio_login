@@ -1,4 +1,4 @@
-package farazqa.aio.automation;
+package farazqa.aio.automation.TestComponents;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;

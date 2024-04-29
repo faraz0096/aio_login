@@ -1,4 +1,4 @@
-package farazqa.aio.automation;
+package farazqa.aio.automation.TestComponents;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class BaseClass {
 	
 	 WebDriver driver;
 
-	    public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
+	    public String getScreenshot(String testCaseName) throws IOException {
 
 	      TakesScreenshot ts=   ((TakesScreenshot)driver);
 	      File source =  ts.getScreenshotAs(OutputType.FILE);
